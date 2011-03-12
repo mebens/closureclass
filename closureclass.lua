@@ -1,5 +1,5 @@
 -- info
-local _classes = {}
+local _classes = setmetatable({}, { __mode = "kv" })
 
 -- Object
 Object = {
@@ -33,6 +33,10 @@ function Object._new(cls, ...)
       end
     end
   end
+  
+  setmetatable(self, {
+    __tostring = function() return 'instance of ' .. cls.name end
+  })
   
   -- initialise
   if cls.init then cls.init(self, ...) end
